@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="HispaMundoComunicacion1">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/HispaMundoComunicacion.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

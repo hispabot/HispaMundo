@@ -8,7 +8,6 @@ package test;
 import hispamundocomunicacion.HispaMundoComunicacion;
 import entidades.MensajeEnvio;
 import entidades.MensajePeticion;
-import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  *
@@ -42,6 +41,7 @@ public class Pruebas {
         
         MensajeEnvio me = new MensajeEnvio();
         me = hmc.getMensajeEnvio();
+        System.out.print("Hola mundo");
         
         int[][] mundo = me.getFraccion();
         

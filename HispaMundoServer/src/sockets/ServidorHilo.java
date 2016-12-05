@@ -22,8 +22,8 @@ import procesos.ComandosJugador;
 public class ServidorHilo extends Thread {
 
     private Socket socket;
-    private ObjectOutputStream dos; 
-    
+    private ObjectOutputStream dos;
+
     private ObjectInputStream dis;
     private int idSessio;
     private LinkedBlockingQueue<String> queueComandos;
@@ -56,16 +56,16 @@ public class ServidorHilo extends Thread {
     public void run() {
         //mundo.imprime("Cliente_"+this.idSessio);
         //String accion = "";
-        MensajePeticion  mensajePeticion;
+        MensajePeticion mensajePeticion;
         while (true) {
             try {
-                Object o = (MensajePeticion)dis.readObject();
-                mensajePeticion = (MensajePeticion)o;
+                Object o = (MensajePeticion) dis.readObject();
+                mensajePeticion = (MensajePeticion) o;
                 MensajeEnvio me = procesaPeticion(mensajePeticion);
-                if(me.getAccion().equals("incorrecto")){
+                if (me.getAccion().equals("incorrecto")) {
                     return;
                 }
-               dos.writeObject(me);
+                dos.writeObject(me);
             } catch (IOException | ClassNotFoundException ex) {
                 ex.printStackTrace();
                 System.out.println("El cliente con idSesion " + this.idSessio + " Termino");
@@ -75,52 +75,48 @@ public class ServidorHilo extends Thread {
 
         desconnectar();
     }
-    
-    
-    private MensajeEnvio procesaPeticion(MensajePeticion mp){
+
+    private MensajeEnvio procesaPeticion(MensajePeticion mp) {
         MensajeEnvio envio = new MensajeEnvio();
         envio.setUsuario(mp.getUsuario());
         switch (mp.getAccion()) {
             case "login":
                 //logica de autenticacion
                 AutenticacionUsuarios au = new AutenticacionUsuarios();
-                if( au.autenticaUsuario(mp.getUsuario(), mp.getParametro1())){
+                if (au.autenticaUsuario(mp.getUsuario(), mp.getParametro1())) {
                     envio.setAccion("correcto");
-                }else{
+                } else {
                     envio.setAccion("incorrecto");
-                }   break;
+                }
+                break;
             case "dameMapaInical":
                 envio.setAccion("envioMundoInicial");
-                if(cj.esNuevoUsuario()){
+                if (cj.esNuevoUsuario()) {
                     // agrega la posicion inicial
-                   int[] posJugador = mundo.agregaUsuario(mp.getUsuario());
-                   
-                    envio.setFraccion(mundo.getMundoInicial(posJugador));
-                }
-                else{
+                    int[] posJugador = mundo.agregaUsuario(mp.getUsuario());
+                    envio.setPos_x(posJugador[0] - (mp.getSize_x() / 2));
+                    envio.setPos_y(posJugador[1] - (mp.getSize_y() / 2));
+
+                    envio.setFraccion(mundo.getMundoInicial(posJugador, mp.getSize_x(), mp.getSize_y()));
+                } else {
                     envio.setFraccion(cj.getMundoDescubierto());
                 }
                 break;
             case "getMundo":
                 envio.setAccion("envioMundo");
-                int[][] mundo_fraccion = this.mundo.getMundo(envio.getPos_x(), envio.getPos_y(), envio.getSize_x(), envio.getSize_y());
-                    for (int[] mundo_fraccion1 : mundo_fraccion) {
-                        for (int j = 0; j < mundo_fraccion1.length; j++) {
-                            System.out.print(mundo_fraccion1[j]);
-                        }
-                        System.out.print("\n");
-                    }
+                int[][] mundo_fraccion = this.mundo.getMundo(mp.getPos_x(), mp.getPos_y(), mp.getSize_x(), mp.getSize_y());
                 envio.setFraccion(mundo_fraccion);
-                    
+                envio.setPos_x(mp.getPos_x());
+                envio.setPos_y(mp.getPos_y());
+
                 break;
-            
-                
+
             default:
                 envio.setAccion("Comando desconocido");
                 break;
         }
-        
+
         return envio;
     }
-    
+
 }

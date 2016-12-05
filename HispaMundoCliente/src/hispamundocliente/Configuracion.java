@@ -44,7 +44,7 @@ public class Configuracion {
 
     }
 
-    private void actualizaArchivo() {
+    public void actualizaConfiguracion() {
         try {
             BufferedWriter writer00 = new BufferedWriter(new FileWriter(fileConfig, false));
 

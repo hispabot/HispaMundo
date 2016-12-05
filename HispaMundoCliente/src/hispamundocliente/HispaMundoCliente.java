@@ -16,6 +16,8 @@ public class HispaMundoCliente {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        Manejador m = new Manejador();
+        m.init();
     }
     
 }

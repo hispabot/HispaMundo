@@ -187,6 +187,8 @@ public class Mundo {
     }
 
     public synchronized int[][] getMundo(int posX, int posY, int sizeX, int sizeY) {
+        
+        System.out.println("posX-["+posX+"] posY["+posY+"] sizeX["+sizeX+"] sizey["+sizeY+"]");
         int localx = 0;
         int localy = 0;
         if (posX < 0 || posY < 0 || sizeX < 0 || sizeY < 0) {
@@ -294,21 +296,24 @@ public class Mundo {
 
     /**
      *
+     * @param posJugador
+     * @param size_x
+     * @param size_y
      * @return
      */
-    public synchronized int[][] getMundoInicial(int[] posJugador) {
+    public synchronized int[][] getMundoInicial(int[] posJugador, int size_x, int size_y) {
 
-        int size = 30;
         
-        int xtem = posJugador[0]-(size/2);
-        int ytem = posJugador[1]-(size/2);
+        
+        int xtem = posJugador[0]-(size_x/2);
+        int ytem = posJugador[1]-(size_y/2);
         if(xtem < 0){
             xtem=0; 
         }
         if(ytem < 0){
             ytem=0; 
         }     
-        return  getMundo(xtem, ytem, size, size);
+        return  getMundo(xtem, ytem, size_x, size_y);
     }
 
     private void generaRios3() {

@@ -3,8 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/git/apps/JAVA/HsipaMundoServer/src/sockets/ServidorHilo.java</file>
-            <file>file:/D:/git/apps/JAVA/HsipaMundoServer/src/mundo/Mundo.java</file>
+            <file>file:/D:/git/apps/JAVA/HispaMundoServer/src/mundo/Mundo.java</file>
+            <file>file:/D:/git/apps/JAVA/HispaMundoServer/src/sockets/ServidorHilo.java</file>
         </group>
     </open-files>
 </project-private>
